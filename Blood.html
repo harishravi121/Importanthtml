@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sum of 5 Inputs</title>
+    <script>
+        function calculateSum() {
+            var input1 = parseFloat(document.getElementById("input1").value) || 0;
+            var input2 = parseFloat(document.getElementById("input2").value) || 0;
+            var input3 = parseFloat(document.getElementById("input3").value) || 0;
+            var input4 = parseFloat(document.getElementById("input4").value) || 0;
+            var input5 = parseFloat(document.getElementById("input5").value) || 0;
+
+            var sum = input1 * input2 * input3 / input4 * input5/1.131/100;
+
+            document.getElementById("result").innerText = "Sum: " + sum;
+        }
+    </script>
+</head>
+<body>
+    <h1>Blood level calculator (Developing, need to find paper)</h1>
+    <form>
+        <label for="input1">Dosage (mg) of one tablet:</label>
+        <input type="number" id="input1" name="input1"><br><br>
+        <label for="input2">No of doses per day:</label>
+        <input type="number" id="input2" name="input2"><br><br>
+        <label for="input3">Percentage absorption in %:</label>
+        <input type="number" id="input3" name="input3"><br><br>
+        <label for="input4">Body weight in kg:</label>
+        <input type="number" id="input4" name="input4"><br><br>
+        <label for="input5">Half life in hrs:</label>
+        <input type="number" id="input5" name="input5"><br><br>
+        <button type="button" onclick="calculateSum()">Calculate Blood level in ug/ml</button>
+    </form>
+    <p id="result">Blood level in ug/ml: D*n*p*thalf/w/1.131/100</p>
+</body>
+</html>

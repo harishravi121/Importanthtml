@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Blinking Text</title>
+<style>
+@keyframes blink { 
+    50% { opacity: 0; } 
+}
+#blink {
+    animation: blink 1s steps(1, start) infinite;
+}
+</style>
+</head>
+<body>
+    <span id="blink">Hi</span> 
+</body>
+</html>

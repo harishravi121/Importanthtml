@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sum of Two Random Numbers</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        p {
+            margin: 5px;
+        }
+    </style>
+    <script>
+        function getRandomNumber() {
+            return Math.floor(Math.random() * 100); // generates a random number between 0 and 99
+        }
+
+        function calculateSum() {
+            let num1 = getRandomNumber();
+            let num2 = getRandomNumber();
+	    let num3= -1*getRandomNumber();
+	    let sum = num1 + num2+num3;
+            document.getElementById('num1').innerText = 'Number 1: ' + num1;
+            document.getElementById('num2').innerText = 'Number 2: ' + num2;
+	    document.getElementById('num3').innerText = 'Number 3: ' + num3;
+            document.getElementById('sum').innerText = 'Sum: ' + sum;
+        }
+
+        function updateSum() {
+            calculateSum();
+            setInterval(calculateSum, 5000);
+        }
+
+        window.onload = updateSum;
+    </script>
+</head>
+<body>
+    <h1>Sum of three Random Numbers</h1>
+    <p id="num1">Number 1: 0</p>
+    <p id="num2">Number 2: 0</p>
+    <p id="num3">Number 3: 0</p>
+    <p id="sum">Sum: 0</p>
+</body>
+</html>

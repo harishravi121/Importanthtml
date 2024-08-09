@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sine Wave Animation</title>
+    <style>
+        canvas {
+            display: block;
+            margin: 0 auto;
+            background: #f0f0f0;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="sineWaveCanvas" width="800" height="400"></canvas>
+    <script>
+        const canvas = document.getElementById('sineWaveCanvas');
+        const context = canvas.getContext('2d');
+        const width = canvas.width;
+        const height = canvas.height;
+        const centerY = height / 2;
+        const amplitude = 100;
+        let frequency = 0.01;
+        let direction = 1;
+
+        function drawSineWave() {
+            context.clearRect(0, 0, width, height);
+            context.beginPath();
+            context.moveTo(0, centerY);
+
+            for (let x = 0; x < width; x++) {
+                const y = centerY + amplitude * Math.sin(frequency * x);
+                context.lineTo(x, y);
+            }
+
+            context.strokeStyle = 'blue';
+            context.stroke();
+        }
+
+        function animate() {
+            drawSineWave();
+            frequency += 0.0005 * direction;
+
+            if (frequency >= 0.03 || frequency <= 0.01) {
+                direction *= -1;
+            }
+        }
+
+        setInterval(animate, 30);
+
+        setInterval(() => {
+            frequency = 0.01;
+            direction = 1;
+        }, 4000);
+    </script>
+</body>
+</html>

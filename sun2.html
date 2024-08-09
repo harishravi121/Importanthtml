@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Sun and Earth Simulation</title>
+  <style>
+    canvas { border: 1px solid black; }
+  </style>
+</head>
+<body>
+  <canvas id="spaceCanvas" width="400" height="400"></canvas>
+
+  <script>
+    const canvas = document.getElementById("spaceCanvas");
+    const ctx = canvas.getContext("2d");
+
+    const centerX = canvas.width / 2;
+    const centerY = canvas.height / 2;
+    const earthRadius = 20;
+    const sunRadius = 30;
+    const orbitRadius = 120;
+
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Draw Earth at the center
+      ctx.beginPath();
+      ctx.arc(centerX, centerY, earthRadius, 0, 2 * Math.PI);
+      ctx.fillStyle = "blue";
+      ctx.fill();
+
+      // Calculate Sun's position based on time
+      const now = new Date();
+      const hours = now.getHours() % 12-6;  // Adjust for 12-hour clock
+      const minutes =now.getMinutes();
+      const timeAngle = (hours + minutes / 60) * 15 * (Math.PI / 180); // 30 degrees per hour
+
+      const sunX = centerX - orbitRadius * Math.cos(timeAngle);
+      const sunY = centerY - orbitRadius * Math.sin(timeAngle); // Inverted y-axis on canvas
+
+      // Draw Sun
+      ctx.beginPath();
+      ctx.arc(sunX, sunY, sunRadius, 0, 2 * Math.PI);
+      ctx.fillStyle = "red";
+      ctx.fill();
+
+      requestAnimationFrame(draw); // Update continuously
+    }
+
+    draw(); // Start the animation
+  </script>
+</body>
+</html>

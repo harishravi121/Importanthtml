@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product of Two Random Numbers</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        p {
+            margin: 5px;
+        }
+    </style>
+    <script>
+        function getRandomNumber() {
+            return Math.floor(Math.random() * 10); // generates a random number between 0 and 99
+        }
+
+        function calculateSum() {
+            let num1 =Math.random()*10;
+            let num2 = getRandomNumber();
+            let time = 365*num1**1.5
+            document.getElementById('num1').innerText = 'Radiusratio : ' + num1;
+
+            document.getElementById('sum').innerText = 'time : ' + time;
+        }
+
+        function updateSum() {
+            calculateSum();
+            setInterval(calculateSum, 5000);
+        }
+
+        window.onload = updateSum;
+    </script>
+</head>
+<body>
+    <h1>Orbital period relative to earth in days</h1>
+    <p id="num1">Radiusratio 1: 0</p>
+
+    <p id="sum">time: 0</p>
+</body>
+</html>

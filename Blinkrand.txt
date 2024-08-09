@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <span id="blink">Hi</span>
+
+    <script>
+        const blinkText = document.getElementById("blink");
+
+        function blinkRandomly() {
+            const randomInterval = Math.random() * 500 + 200; // 500ms to 2500ms
+            blinkText.style.visibility = "hidden";
+
+            setTimeout(() => {
+                blinkText.style.visibility = "visible";
+                blinkRandomly(); // Call itself to continue blinking
+            }, randomInterval);
+        }
+
+        blinkRandomly(); // Start the blinking
+    </script>
+</body>
+</html>

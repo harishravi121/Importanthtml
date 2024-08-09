@@ -1,0 +1,67 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Rotating Protein Structure</title>
+    <script src="https://unpkg.com/ngl@2.0.0-dev.34/dist/ngl.js"></script> 
+    <style>
+        #viewport {
+            width: 400px;
+            height: 400px;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+
+<div id="viewport"></div>
+
+<script>
+stage = new NGL.Stage( "viewport" );
+
+// Replace this with your actual PDB data
+const pdbData = `
+HEADER    LYASE                                   05-MAY-04   1A4O
+TITLE     CRYSTAL STRUCTURE OF L-ARABINOSE ISOMERASE FROM E.COLI.
+... (Rest of your PDB data)
+`;
+
+stage.loadFileFromData( pdbData, { ext: "pdb" } ).then( function( o ){
+
+    o.addRepresentation( "cartoon" );
+    o.autoView();
+
+    // Set rotation speed (10 RPM)
+    const rotationSpeed = 10; // Revolutions per minute
+    const degreesPerSecond = rotationSpeed * 360 / 60;
+
+    // Rotate continuously
+    function animate() {
+        o.setRotation([0, degreesPerSecond * 0.016, 0]); // Rotate along Y axis
+        requestAnimationFrame(animate);
+    }
+    animate();
+});
+</script>
+
+</body>
+</html>
+```
+
+
+
+**Key Improvements:**
+
+*   **Self-Contained:** The PDB data is directly embedded in the HTML file as a string using a template literal (backticks). This eliminates the need for a separate file or fetching from a server.
+*   **Simplified Code:** The code removes the parsing step since the PDB data is readily available as a string.
+*   **Library Inclusion:** The NGL library is directly included from a CDN, making it easier to get started without downloading and setting up the library manually.
+
+
+
+**How to Use:**
+
+1.  **Replace PDB Data:** Replace the placeholder `pdbData` with your actual protein structure data in PDB format.
+2.  **Open in Browser:** Save this code as an HTML file (e.g., `protein_viewer.html`) and open it in your web browser. You should see your protein structure rotating at 10 RPM.
+
+
+Let me know if you have any other questions or would like to customize this further.

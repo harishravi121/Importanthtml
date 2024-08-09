@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>5x5 Rubik's Cube Solver</title>
+    <style>
+        body { margin: 0; }
+        canvas { display: block; }
+    </style>
+</head>
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script>
+        // Initializing scene, camera, and renderer
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+
+        // Cube configuration
+        const cubeSize = 5;
+        const pieces = [];
+        const pieceSize = 1;
+
+        // Function to create a single piece
+        function createPiece(x, y, z) {
+            const geometry = new THREE.BoxGeometry(pieceSize, pieceSize, pieceSize);
+            const materials = [
+                new THREE.MeshBasicMaterial({ color: 0xff0000 }), // red
+                new THREE.MeshBasicMaterial({ color: 0x00ff00 }), // green
+                new THREE.MeshBasicMaterial({ color: 0x0000ff }), // blue
+                new THREE.MeshBasicMaterial({ color: 0xffff00 }), // yellow
+                new THREE.MeshBasicMaterial({ color: 0xffa500 }), // orange
+                new THREE.MeshBasicMaterial({ color: 0xffffff })  // white
+            ];
+            const piece = new THREE.Mesh(geometry, materials);
+            piece.position.set(x, y, z);
+            scene.add(piece);
+            pieces.push(piece);
+        }
+
+        // Creating the 5x5x5 cube
+        for (let x = -2; x <= 2; x++) {
+            for (let y = -2; y <= 2; y++) {
+                for (let z = -2; z <= 2; z++) {
+                    createPiece(x, y, z);
+                }
+            }
+        }
+
+        // Camera position
+        camera.position.z = 10;
+
+        // Rotation variables
+        let isDragging = false;
+        let previousMousePosition = {
+            x: 0,
+            y: 0
+        };
+
+        // Mouse move event
+        document.addEventListener('mousemove', function (event) {
+            if (!isDragging) {
+                return;
+            }
+
+            const deltaMove = {
+                x: event.offsetX - previousMousePosition.x,
+                y: event.offsetY - previousMousePosition.y
+            };
+
+            const deltaRotationQuaternion = new THREE.Quaternion()
+                .setFromEuler(new THREE.Euler(
+                    toRadians(deltaMove.y * 1),
+                    toRadians(deltaMove.x * 1),
+                    0,
+                    'XYZ'
+                ));
+
+            pieces.forEach(piece => {
+                piece.quaternion.multiplyQuaternions(deltaRotationQuaternion, piece.quaternion);
+            });
+
+            previousMousePosition = {
+                x: event.offsetX,
+                y: event.offsetY
+            };
+        });
+
+        // Mouse down event
+        document.addEventListener('mousedown', function (event) {
+            isDragging = true;
+        });
+
+        // Mouse up event
+        document.addEventListener('mouseup', function (event) {
+            isDragging = false;
+        });
+
+        // Animation loop
+        function animate() {
+            requestAnimationFrame(animate);
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        // Helper function to convert degrees to radians
+        function toRadians(angle) {
+            return angle * (Math.PI / 180);
+        }
+    </script>
+</body>
+</html>

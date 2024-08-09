@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product of Two Random Numbers</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        p {
+            margin: 5px;
+        }
+    </style>
+    <script>
+        function getRandomNumber() {
+            return Math.floor(Math.random() * 10); // generates a random number between 0 and 99
+        }
+
+        function calculateSum() {
+            let num1 = getRandomNumber();
+            let num2 = getRandomNumber();
+            let En = -1*13.6/num1/num1;
+            document.getElementById('num1').innerText = 'Orbital : ' + num1;
+
+            document.getElementById('sum').innerText = 'Energy : ' + En;
+        }
+
+        function updateSum() {
+            calculateSum();
+            setInterval(calculateSum, 5000);
+        }
+
+        window.onload = updateSum;
+    </script>
+</head>
+<body>
+    <h1>nth Energy level -13.6/n^2 eV</h1>
+    <p id="num1">Orbital 1: 0</p>
+
+    <p id="sum">Sum: 0</p>
+</body>
+</html>

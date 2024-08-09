@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Multiple Choice Quiz</title>
+  <style>
+    body { font-family: sans-serif; }
+    .question { margin-bottom: 20px; }
+    #result { font-weight: bold; margin-top: 20px; }
+  </style>
+</head>
+<body>
+  <h2>Quiz Time!</h2>
+
+  <form id="quizForm">
+    </form>
+
+  <button type="button" onclick="calculateScore()">Submit</button>
+  <div id="result"></div>
+
+  <script>
+    const questions = [
+      {
+        question: "What is the capital of France?",
+        options: ["Berlin", "Paris", "Rome", "Madrid"],
+        answer: "Paris"
+      },
+	{
+        question: "what is the normal force by 80 kg object?",
+        options: ["80 N", "8 N", "800 N", "8000 N"],
+        answer: "800 N"
+      }
+      // ... more questions
+    ];
+
+    const quizForm = document.getElementById("quizForm");
+
+    // Dynamically generate quiz questions and options
+    questions.forEach((q, index) => {
+      const questionDiv = document.createElement("div");
+      questionDiv.classList.add("question");
+      questionDiv.innerHTML = `
+        <p>${index + 1}. ${q.question}</p>
+        ${q.options.map(option => `
+          <label>
+            <input type="radio" name="q${index}" value="${option}"> ${option}
+          </label>
+        `).join('')}
+      `;
+      quizForm.appendChild(questionDiv);
+    });
+
+    function calculateScore() {
+      let score = 0;
+      questions.forEach((q, index) => {
+        const selectedOption = document.querySelector(`input[name="q${index}"]:checked`);
+        if (selectedOption && selectedOption.value === q.answer) {
+          score++;
+        }
+      });
+      document.getElementById("result").textContent = `You scored ${score} out of ${questions.length}!`;
+    }
+  </script>
+</body>
+</html>

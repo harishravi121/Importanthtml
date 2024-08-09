@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Random Beep Button</title>
+    <style>
+        button {
+            padding: 20px;
+            font-size: 18px;
+            background-color: lightblue;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <button onclick="makeRandomBeep()">Make Random Beep</button>
+
+    <script>
+        function makeRandomBeep() {
+            const minFrequency = 440; // A4 note
+            const maxFrequency = 1760; // A6 note
+
+            const frequency = Math.random() * (maxFrequency - minFrequency) + minFrequency;
+            const duration = Math.random() * 0.5 + 0.2; // 0.2 to 0.7 seconds
+
+            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const oscillator = audioCtx.createOscillator();
+
+            oscillator.type = 'sine';
+            oscillator.frequency.value = frequency;
+            oscillator.connect(audioCtx.destination);
+            oscillator.start();
+
+            setTimeout(() => {
+                oscillator.stop();
+            }, duration * 1000);
+        }
+    </script>
+</body>
+</html>

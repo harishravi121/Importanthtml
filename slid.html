@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+#slideText {
+    width: 400px; /* Adjust width as needed */
+    margin: 50px auto;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+#slideText p {
+    display: inline-block;
+    padding-left: 100%; /* Start offscreen */
+    animation: slide 10s linear infinite; /* Adjust duration for speed */
+}
+
+@keyframes slide {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-100%); } 
+}
+</style>
+</head>
+<body>
+
+<div id="slideText">
+    <p>Harish</p>
+</div>
+
+</body>
+</html>

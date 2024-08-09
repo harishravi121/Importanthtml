@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blinking Text</title>
+    <style>
+        #blink {
+            font-size: 2em;
+            font-weight: bold;
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div id="blink">Hi</div>
+
+    <script>
+        function getRandomTime(min, max) {
+            return Math.random() * (max - min) +min;
+        }
+
+        function blinkText() {
+            const blinkElement = document.getElementById('blink');
+            setInterval(() => {
+                blinkElement.style.visibility = (blinkElement.style.visibility === 'hidden') ? 'visible' : 'hidden';
+                let randomTime = getRandomTime(2500, 4000); // Random time between 200ms and 1000ms
+                setTimeout(blinkText, randomTime);
+            }, getRandomTime(1500, 3000)); // Initial random interval between 500ms and 1500ms
+setTimeout(blinkText, randomTime);
+        }
+
+        blinkText();
+    </script>
+</body>
+</html>

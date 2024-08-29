@@ -34,7 +34,7 @@
       const minutes =now.getMinutes();
       const timeAngle = (hours + minutes / 60) * 15 * (Math.PI / 180); // 30 degrees per hour
 
-      const sunX = centerX - orbitRadius * Math.cos(timeAngle);
+      const sunX = centerX + orbitRadius * Math.cos(timeAngle);
       const sunY = centerY - orbitRadius * Math.sin(timeAngle); // Inverted y-axis on canvas
 
       // Draw Sun
